@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "visitor-counter-client-side-solution",
+    "id": "912dfabe-0086-4847-9099-f81a856d64f5",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.14.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "visitor-counter description"
+      },
+      "longDescription": {
+        "default": "visitor-counter description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "visitor-counter Feature",
+        "description": "The feature that activates elements of the visitor-counter solution.",
+        "id": "59bb77ce-54f6-49bc-9f6d-24f3160b1c6b",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/visitor-counter.sppkg"
+  }
+}
