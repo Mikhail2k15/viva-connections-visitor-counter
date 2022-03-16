@@ -9,9 +9,24 @@ export class VisitorCounterPropertyPane {
           header: { description: strings.PropertyPaneDescription },
           groups: [
             {
+              groupName: 'General',
               groupFields: [
                 PropertyPaneTextField('title', {
                   label: strings.TitleFieldLabel
+                })                
+              ]
+            },
+            {
+              groupName: 'Application Insights',
+              groupFields: [
+                PropertyPaneTextField('aiKey', {
+                  label: 'Instrumentation Key'
+                }),
+                PropertyPaneTextField('aiAppId', {
+                  label: 'Application ID'
+                }),
+                PropertyPaneTextField('aiAppKey', {
+                  label: 'API key'
                 })
               ]
             }

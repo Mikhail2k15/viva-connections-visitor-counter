@@ -3,7 +3,7 @@
   "solution": {
     "name": "visitor-counter-client-side-solution",
     "id": "912dfabe-0086-4847-9099-f81a856d64f5",
-    "version": "1.0.0.0",
+    "version": "1.0.0.2",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,
