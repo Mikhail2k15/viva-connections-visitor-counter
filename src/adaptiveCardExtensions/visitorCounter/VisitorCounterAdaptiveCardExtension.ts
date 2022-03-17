@@ -7,6 +7,7 @@ import { Logger, LogLevel } from '@pnp/logging';
 //import AppInsightsListener from '../../AppInsightsListener';
 import AppInsightsHelper, { TimeSpan } from '../../AppInsightsHelper';
 import { AppInsightsLogListener } from '../../AppInsightsLogListener';
+import { Log } from '@microsoft/sp-core-library';
 
 export interface IVisitorCounterAdaptiveCardExtensionProps {
   title: string;
@@ -32,35 +33,48 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
   private _deferredPropertyPane: VisitorCounterPropertyPane | undefined;
 
   public onInit(): Promise<void> {
-    this.state = {
-      uniqueSessions: 0,
-      desktop: 0,
-      mobile: 0,
-      web: 0
-     };
-
-    Logger.activeLogLevel = LogLevel.Verbose;
-    //Logger.subscribe(ConsoleListener());
-    console.log(this.properties);
-    if (this.properties !== undefined && this.properties.aiKey !== undefined){
-      console.log(this.properties.aiKey);
-      Logger.subscribe(new AppInsightsLogListener(this.properties.aiKey));
+    try {
+      Logger.activeLogLevel = LogLevel.Verbose;
+      //Logger.subscribe(ConsoleListener());
+      console.log('this.properties ', this.properties);
       
-    }
-    Logger.log({ message: 'VisitorCounterAdaptiveCardExtension::onInit()', level: LogLevel.Verbose});
-    
-    if (this.properties.aiAppId && this.properties.aiAppKey){
-      const appInsightsSvc = new AppInsightsHelper(this.context.httpClient, this.properties.aiAppId, this.properties.aiAppKey);
-      this.getInsights(appInsightsSvc);
-    }
+      
+      this.state = {
+        uniqueSessions: 0,
+        desktop: 0,
+        mobile: 0,
+        web: 0
+       };
+  
+      Log.info('ACE', 'onInit standard log output');
+  
+         
+      
+      if (this.properties.aiAppId && this.properties.aiAppKey){
+        const appInsightsSvc = new AppInsightsHelper(this.context.httpClient, this.properties.aiAppId, this.properties.aiAppKey);
+        this.getInsights(appInsightsSvc);
+      }
+  
+      this.cardNavigator.register(CARD_VIEW_REGISTRY_ID, () => new CardView());
+      this.quickViewNavigator.register(QUICK_VIEW_REGISTRY_ID, () => new QuickView());
+  
 
-    this.cardNavigator.register(CARD_VIEW_REGISTRY_ID, () => new CardView());
-    this.quickViewNavigator.register(QUICK_VIEW_REGISTRY_ID, () => new QuickView());
+      if (this.properties.aiKey){
+        console.log('this.properties.aiKey',this.properties.aiKey);
+        let ai = new AppInsightsLogListener(this.properties.aiKey); 
+        ai.trackEvent("onInit");     
+      } 
 
-    return Promise.resolve();
+      return Promise.resolve();
+    }
+    catch (error){
+      console.log(error.message);
+      Logger.write(`Error in onInit: ${error.message}`, LogLevel.Error);
+    }    
   }
 
   protected loadPropertyPaneResources(): Promise<void> {
+    console.log('begin loadPropertyPaneResources()');
     return import(
       /* webpackChunkName: 'VisitorCounter-property-pane'*/
       './VisitorCounterPropertyPane'
@@ -68,17 +82,24 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
       .then(
         (component) => {
           this._deferredPropertyPane = new component.VisitorCounterPropertyPane();
+          console.log('end loadPropertyPaneResources()');
         }
       );
   }
 
+  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
+    console.log('begin getPropertyPaneConfiguration()');
+    return this._deferredPropertyPane!.getPropertyPaneConfiguration();
+  }
+
   protected renderCard(): string | undefined {
+    console.log('begin render card',this.properties.aiKey);
+    
+    Logger.log({ message: 'renderCard()', level: LogLevel.Info});
     return CARD_VIEW_REGISTRY_ID;
   }
 
-  protected getPropertyPaneConfiguration(): IPropertyPaneConfiguration {
-    return this._deferredPropertyPane!.getPropertyPaneConfiguration();
-  }
+  
 
   private getInsights = async (appInsightsSvc: AppInsightsHelper) => {
     const query: string = "customEvents | summarize dcount(session_Id)";

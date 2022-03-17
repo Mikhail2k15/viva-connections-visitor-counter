@@ -15,11 +15,13 @@ export class AppInsightsLogListener implements ILogListener {
     private static _reactPluginInstance: ReactPlugin;
 
     constructor(instrumentationKey: string) {
+        console.log('AppInsightsLogListener ctor');
         if (!AppInsightsLogListener._appInsightsInstance)
         AppInsightsLogListener._appInsightsInstance = AppInsightsLogListener._initializeAI(instrumentationKey);
     }
 
     private static _initializeAI(instrumentationKey?: string): ApplicationInsights {
+        console.log("begin _initializeAI");
         const browserHistory = createBrowserHistory({ basename: '' });
         AppInsightsLogListener._reactPluginInstance = new ReactPlugin();
         const appInsights = new ApplicationInsights({
@@ -39,6 +41,7 @@ export class AppInsightsLogListener implements ILogListener {
         appInsights.loadAppInsights();
         appInsights.context.application.ver = '1.0.3'; // application_Version
         //appInsights.setAuthenticatedUserContext(_hashUser(currentUser)); // user_AuthenticateId
+        console.log("end _initializeAI");
         return appInsights;
     }
 
@@ -50,8 +53,10 @@ export class AppInsightsLogListener implements ILogListener {
     }
 
     public trackEvent(name: string): void {
+        console.log('begin trackEvent for even name ', name);
         if (AppInsightsLogListener._appInsightsInstance)
-        AppInsightsLogListener._appInsightsInstance.trackEvent(_logEventFormat(name), CONST.ApplicationInsights.CustomProps);
+        AppInsightsLogListener._appInsightsInstance.trackEvent(/*_logEventFormat(name)*/ { name: name}, CONST.ApplicationInsights.CustomProps);
+        console.log('end trackEvent');
     }
 
     public log(entry: ILogEntry): void {
@@ -67,7 +72,7 @@ export class AppInsightsLogListener implements ILogListener {
                     AppInsightsLogListener._appInsightsInstance.trackTrace({ message: msg, severityLevel: SeverityLevel.Verbose }, CONST.ApplicationInsights.CustomProps);
                     break;
                 case LogLevel.Info:
-                    AppInsightsLogListener._appInsightsInstance.trackTrace({ message: msg, severityLevel: SeverityLevel.Information }, CONST.ApplicationInsights.CustomProps);
+                    AppInsightsLogListener._appInsightsInstance.trackEvent(_logEventFormat(msg), CONST.ApplicationInsights.CustomProps);
                     console.log({ ...CONST.ApplicationInsights.CustomProps, Message: msg });
                     break;
                 case LogLevel.Warning:

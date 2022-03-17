@@ -51,7 +51,9 @@ export const _logMessageFormat = (entry: ILogEntry): string => {
 
 export const _logEventFormat = (eventName: string): IEventTelemetry => {
     let eventTelemetry: IEventTelemetry = null;
-    eventTelemetry.name = `['VISITOR_COUNTER_ACE'] ${eventName}`;
+    console.log(`before [VISITOR_COUNTER_ACE] ${eventName}`);
+    eventTelemetry.name = `[VISITOR_COUNTER_ACE] ${eventName}`;
+    console.log('after eventTelemetry.name==', eventTelemetry.name);
     return eventTelemetry;
 };
 
