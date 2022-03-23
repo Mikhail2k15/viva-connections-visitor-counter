@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
   "solution": {
-    "name": "visitor-counter-client-side-solution",
+    "name": "visitor-counter-for-viva-connections",
     "id": "912dfabe-0086-4847-9099-f81a856d64f5",
     "version": "1.0.0.2",
     "includeClientSideAssets": true,
@@ -27,7 +27,7 @@
     },
     "features": [
       {
-        "title": "visitor-counter Feature",
+        "title": "visitor-counter",
         "description": "The feature that activates elements of the visitor-counter solution.",
         "id": "59bb77ce-54f6-49bc-9f6d-24f3160b1c6b",
         "version": "1.0.0.0"

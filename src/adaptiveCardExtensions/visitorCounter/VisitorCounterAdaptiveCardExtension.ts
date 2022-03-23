@@ -66,8 +66,8 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
       // This matters only only for several people, get it from properties (upn separted by columns)
       if (this.properties.analytics && this.properties.analytics.length > 0){
         const people = this.properties.analytics;
-        let result = people.indexOf(this.context.pageContext.user.email);
-        if (result > 0){
+        let result = people.indexOf(this.context.pageContext.user.email);      
+        if (result >= 0){
           if (this.properties.aiAppId && this.properties.aiAppKey){
             const appInsightsSvc = new AppInsightsService(this.context.httpClient, this.properties.aiAppId, this.properties.aiAppKey);
             this.getInsights(appInsightsSvc);
