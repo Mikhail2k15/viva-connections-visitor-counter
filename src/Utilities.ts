@@ -4,9 +4,11 @@ import {
 import { IEventTelemetry } from "@microsoft/applicationinsights-web";
 //import jsSHA from "jssha";
 
-export const _tenantName = () => {
-    if (window && window.location && window.location.hostname) {
-        return window.location.hostname.split(".sharepoint")[0];
+export const ancestorOrigins = () => {
+    if (window && window.location && window.location.ancestorOrigins) {
+        console.log(window.location.ancestorOrigins);
+        return window.location.ancestorOrigins;
+        //return window.location.hostname.split(".sharepoint")[0];
     }
     return "UNKNOWN";
 };
@@ -14,7 +16,8 @@ export const _tenantName = () => {
 export const CONST = {
     ApplicationInsights: {
         CustomProps: {
-            Tenant: _tenantName(), App_Name: 'VISITOR_COUNTER_ACE'
+            ancestorOrigins: ancestorOrigins(), 
+            App_Name: 'VISITOR_COUNTER_ACE', 
         }
     }
 };

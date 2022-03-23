@@ -13,6 +13,9 @@ export class VisitorCounterPropertyPane {
               groupFields: [
                 PropertyPaneTextField('title', {
                   label: strings.TitleFieldLabel
+                }),
+                PropertyPaneTextField('analytics', {
+                  label: 'Analytics'
                 })                
               ]
             },

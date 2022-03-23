@@ -24,19 +24,14 @@ export class CardView extends BasePrimaryTextCardView<IVisitorCounterAdaptiveCar
   }
 
   public get data(): IPrimaryTextCardParameters {
+    const today: number = this.state.today;
+    const msteams: number = +this.state.desktop + +this.state.mobile + +this.state.web;
     return {
-      primaryText: strings.PrimaryText,
-      description: strings.Description,
+      primaryText: `${today} visits today`,
+      description: `Click Details for more information`,
       title: this.properties.title
     };
   }
 
-  public get onCardSelection(): IQuickViewCardAction | IExternalLinkCardAction | undefined {
-    return {
-      type: 'ExternalLink',
-      parameters: {
-        target: 'https://www.bing.com'
-      }
-    };
-  }
+  
 }

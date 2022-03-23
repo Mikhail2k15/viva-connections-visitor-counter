@@ -5,8 +5,16 @@
   "body": [
     {
       "type": "TextBlock",
+      "text": "Analytics for the last 30 days",
+      "wrap": true,
       "weight": "Bolder",
-      "text": "${title}"
+      "size": "large",
+      "spacing": "small"
+    },
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Microsoft Teams vs SharePoint Portal"
     },
     {
       "type": "ColumnSet",
@@ -16,13 +24,78 @@
           "items": [
             {
               "type": "TextBlock",
-              "weight": "Bolder",
-              "text": "${subTitle}",
+              "text": "Microsoft Teams: ${msteams}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "SharePoint: ${spo}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "TextBlock",
+      "weight": "Bolder",
+      "text": "Microsoft Teams Details"
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Microsoft Teams Desktop: ${desktop}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Microsoft Teams Mobile: ${mobile}",
               "wrap": true
             }
           ]
         }
       ]
     }
+    ,
+    {
+      "type": "ColumnSet",
+      "columns": [
+        {
+          "type": "Column",
+          "items": [
+            {
+              "type": "TextBlock",
+              "text": "Microsoft Teams Web: ${web}",
+              "wrap": true
+            }
+          ]
+        }
+      ]
+    }    
   ]
 }

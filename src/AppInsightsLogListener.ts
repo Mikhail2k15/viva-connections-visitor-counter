@@ -40,6 +40,7 @@ export class AppInsightsLogListener implements ILogListener {
 
         appInsights.loadAppInsights();
         appInsights.context.application.ver = '1.0.3'; // application_Version
+        
         //appInsights.setAuthenticatedUserContext(_hashUser(currentUser)); // user_AuthenticateId
         console.log("end _initializeAI");
         return appInsights;
