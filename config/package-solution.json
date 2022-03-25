@@ -3,7 +3,7 @@
   "solution": {
     "name": "visitor-counter-for-viva-connections",
     "id": "912dfabe-0086-4847-9099-f81a856d64f5",
-    "version": "1.0.0.3",
+    "version": "1.0.0.4",
     "includeClientSideAssets": true,
     "skipFeatureDeployment": true,
     "isDomainIsolated": false,

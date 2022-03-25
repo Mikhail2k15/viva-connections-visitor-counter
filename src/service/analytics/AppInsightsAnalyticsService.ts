@@ -3,7 +3,7 @@ import { Logger, LogLevel } from "@pnp/logging";
 import { TimeSpan } from "./TimeSpan";
 
 
-export default class AppInsightsService {
+export default class AppInsightsAnalyticsService {
     private appInsightsEndpoint: string = 'https://api.applicationinsights.io/v1/apps';     
     
     private executeQuery = async (queryUrl: string): Promise<any> => {
@@ -51,11 +51,7 @@ export default class AppInsightsService {
             appInsightsEndpoint: this.appInsightsEndpoint, 
             appKey: appKey }, LogLevel.Info);
     }
-
-    //public static getAppInsights = () => {
-    //    return new AppInsightsService()
-    //}
-
+    
     private httpClient: HttpClient;
     private httpClientOptions: IHttpClientOptions;
     private requestHeaders: Headers = new Headers();

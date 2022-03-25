@@ -30,7 +30,7 @@ export const _logEventFormat = (eventName: string): IEventTelemetry => {
     return eventTelemetry;
 };
 
-export class AppInsightsTelemetryTracker {
+export class AppInsightsTelemetryTracker implements ILogListener {
     private static appInsightsInstance: ApplicationInsights;
     private static reactPluginInstance: ReactPlugin;
 
@@ -45,6 +45,33 @@ export class AppInsightsTelemetryTracker {
         console.log('AppInsightsLogListener ctor');
         if (!AppInsightsTelemetryTracker.appInsightsInstance)
         AppInsightsTelemetryTracker.appInsightsInstance = AppInsightsTelemetryTracker.initializeAI(instrumentationKey);
+    }
+
+    public log(entry: ILogEntry): void {
+        const msg = _logMessageFormat(entry);
+        if (entry.level === LogLevel.Off) {
+            // No log required since the level is Off
+            return;
+        }
+
+        if (AppInsightsTelemetryTracker.appInsightsInstance)
+            switch (entry.level) {
+                case LogLevel.Verbose:
+                    AppInsightsTelemetryTracker.appInsightsInstance.trackTrace({ message: msg, severityLevel: SeverityLevel.Verbose });
+                    break;
+                case LogLevel.Info:
+                    AppInsightsTelemetryTracker.appInsightsInstance.trackTrace({ message: msg, severityLevel: SeverityLevel.Information });
+                    console.log({ Message: msg });
+                    break;
+                case LogLevel.Warning:
+                    AppInsightsTelemetryTracker.appInsightsInstance.trackTrace({ message: msg, severityLevel: SeverityLevel.Warning });
+                    console.warn({ Message: msg });
+                    break;
+                case LogLevel.Error:
+                    AppInsightsTelemetryTracker.appInsightsInstance.trackException({ error: new Error(msg), severityLevel: SeverityLevel.Error });
+                    console.error({ Message: msg });
+                    break;
+            }
     }
 
     private static initializeAI(instrumentationKey?: string): ApplicationInsights {

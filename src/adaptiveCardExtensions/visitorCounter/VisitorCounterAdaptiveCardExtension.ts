@@ -6,7 +6,7 @@ import { Logger, LogLevel } from '@pnp/logging';
 import { AppInsightsTelemetryTracker } from '../../AppInsightsTelemetryTracker';
 import { ImageCardView } from './cardView/ImageCardView';
 import { TimeSpan } from '../../service/analytics/TimeSpan';
-import AppInsightsService from '../../service/analytics/AppInsightsService';
+import AppInsightsAnalyticsService from '../../service/analytics/AppInsightsAnalyticsService';
 import VivaConnectionsInsights from '../../service/analytics/VivaConnectionsInsights';
 
 export interface IVisitorCounterAdaptiveCardExtensionProps {
@@ -63,16 +63,20 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
           level: LogLevel.Verbose
         });
         let ai = new AppInsightsTelemetryTracker(this.properties.aiKey);         
-        ai.trackEvent(this.context.deviceContext);     
+        ai.trackEvent(this.context.deviceContext); 
+        try{
+          Logger.subscribe(ai);   
+        }
+        catch {} 
       }
 
-      // This matters only for several people, get it from properties (upn separted by columns)
+      // This matters only for several people, get them from properties (upn separted by columns)
       if (this.properties.analytics && this.properties.analytics.length > 0){
         const people = this.properties.analytics;
         let result = people.indexOf(this.context.pageContext.user.email);      
         if (result >= 0){
           if (this.properties.aiAppId && this.properties.aiAppKey){
-            const appInsightsSvc = new AppInsightsService(this.context.httpClient, this.properties.aiAppId, this.properties.aiAppKey);
+            const appInsightsSvc = new AppInsightsAnalyticsService(this.context.httpClient, this.properties.aiAppId, this.properties.aiAppKey);
             this.getInsights(appInsightsSvc);
           }
         }
@@ -121,14 +125,21 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
     return IMAGE_CARD_VIEW_REGISTRY_ID;
   }
 
-  private getInsights = async (appInsightsSvc: AppInsightsService) => {
+  private getInsights = async (appInsightsSvc: AppInsightsAnalyticsService) => {
     const resultToday: any[] = await VivaConnectionsInsights.getTodaySessions(appInsightsSvc);
+    
     const monthlyCount: any[] = await VivaConnectionsInsights.getMonthlySessions(appInsightsSvc);
     const resultMobile: any[] = await VivaConnectionsInsights.getMobileSessions(appInsightsSvc, TimeSpan['30 days']);
     const resultDesktop: any[] = await VivaConnectionsInsights.getDesktopSessions(appInsightsSvc, TimeSpan['30 days']);
-    const resultWeb: any[] = await VivaConnectionsInsights.getDesktopSessions(appInsightsSvc, TimeSpan['30 days']);   
+    const resultWeb: any[] = await VivaConnectionsInsights.getWebSessions(appInsightsSvc, TimeSpan['30 days']);   
 
-    Promise.all([resultToday, resultDesktop, resultMobile, resultWeb]).then(()=>{
+    Promise.all([resultToday, monthlyCount, resultDesktop, resultMobile, resultWeb]).then(()=>{
+      Logger.log({
+        message: "All counts",
+        data: { thisState: this.state },
+        level: LogLevel.Verbose
+      });
+      
       this.setState(
         {
           today: resultToday?.length == 1 ? resultToday[0] : 0,
@@ -138,6 +149,7 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
           web: resultWeb?.length == 1 ? resultWeb[0] : 0,
           showAnalytics: true
         });
+        console.log(this.state);  
     });
   }
 }
