@@ -1,10 +1,9 @@
 import { HttpClient, IHttpClientOptions, HttpClientResponse } from "@microsoft/sp-http";
 import { Logger, LogLevel } from "@pnp/logging";
-import { IAnalyticsService } from "./IAnalyticsService";
 import { TimeSpan } from "./TimeSpan";
 
 
-export default class AppInsightsService implements IAnalyticsService {
+export default class AppInsightsService {
     private appInsightsEndpoint: string = 'https://api.applicationinsights.io/v1/apps';     
     
     private executeQuery = async (queryUrl: string): Promise<any> => {

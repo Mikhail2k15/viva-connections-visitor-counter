@@ -17,10 +17,9 @@ import {
     }
   
     get data(): IImageCardParameters {
-        const today: number = this.state.today;
         return {
-            primaryText: `${today} visits today `,
-            imageUrl: 'https://statics.teams.cdn.office.net/evergreen-assets/apps/d2c6f111-ffad-42a0-b65e-ee00425598aa_largeImage.png'
+            primaryText: this.properties.primaryText || strings.PrimaryText,
+            imageUrl: this.properties.imageUrl || require('../assets/vivaConnectionsLogo.png'),
         };
     }
   }

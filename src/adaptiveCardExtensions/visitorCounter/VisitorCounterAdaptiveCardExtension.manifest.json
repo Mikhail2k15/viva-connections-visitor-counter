@@ -19,7 +19,7 @@
     "group": { "default": "Dashboard" },
     "title": { "default": "Visitor Counter" },
     "description": { "default": "Visitor Counter description" },
-    "officeFabricIconFontName": "SharePointLogo",
+    "officeFabricIconFontName": "record",
     "properties": {
       "title": "Visitor Counter"
     }

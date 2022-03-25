@@ -4,7 +4,7 @@ define([], function() {
     "TitleFieldLabel": "Card title",
     "Title": "Adaptive Card Extension",
     "SubTitle": "Quick view",
-    "PrimaryText": "SPFx Adaptive Card Extension",
+    "PrimaryText": "Welcome to Viva!",
     "Description": "Create your SPFx Adaptive Card Extension solution!",
     "QuickViewButton": "Details",
   }

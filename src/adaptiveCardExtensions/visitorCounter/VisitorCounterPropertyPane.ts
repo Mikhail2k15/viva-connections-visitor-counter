@@ -14,6 +14,12 @@ export class VisitorCounterPropertyPane {
                 PropertyPaneTextField('title', {
                   label: strings.TitleFieldLabel
                 }),
+                PropertyPaneTextField('primaryText', {
+                  label: 'Primary Text'
+                }),
+                PropertyPaneTextField('imageUrl', {
+                  label: 'Image Url'
+                }),
                 PropertyPaneTextField('analytics', {
                   label: 'Analytics'
                 })                

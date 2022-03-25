@@ -3,7 +3,7 @@ import { BaseAdaptiveCardExtension } from '@microsoft/sp-adaptive-card-extension
 import { QuickView } from './quickView/QuickView';
 import { VisitorCounterPropertyPane } from './VisitorCounterPropertyPane';
 import { Logger, LogLevel } from '@pnp/logging';
-import { AppInsightsLogListener } from '../../AppInsightsLogListener';
+import { AppInsightsTelemetryTracker } from '../../AppInsightsTelemetryTracker';
 import { ImageCardView } from './cardView/ImageCardView';
 import { TimeSpan } from '../../service/analytics/TimeSpan';
 import AppInsightsService from '../../service/analytics/AppInsightsService';
@@ -11,10 +11,12 @@ import VivaConnectionsInsights from '../../service/analytics/VivaConnectionsInsi
 
 export interface IVisitorCounterAdaptiveCardExtensionProps {
   title: string;
+  primaryText: string;
+  imageUrl: string;
   analytics: string;
   aiKey: string;
   aiAppId: string;
-  aiAppKey: string;
+  aiAppKey: string;  
 }
 
 export interface IVisitorCounterAdaptiveCardExtensionState {
@@ -24,6 +26,7 @@ export interface IVisitorCounterAdaptiveCardExtensionState {
   mobile: number;
   web: number;
   showAnalytics: boolean;
+
 }
 
 const IMAGE_CARD_VIEW_REGISTRY_ID: string ='VisitorCounter_IMAGE_CARD_VIEW';
@@ -59,11 +62,11 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
           data: { aiKey: this.properties.aiKey },
           level: LogLevel.Verbose
         });
-        let ai = new AppInsightsLogListener(this.properties.aiKey);         
+        let ai = new AppInsightsTelemetryTracker(this.properties.aiKey);         
         ai.trackEvent(this.context.deviceContext);     
       }
 
-      // This matters only only for several people, get it from properties (upn separted by columns)
+      // This matters only for several people, get it from properties (upn separted by columns)
       if (this.properties.analytics && this.properties.analytics.length > 0){
         const people = this.properties.analytics;
         let result = people.indexOf(this.context.pageContext.user.email);      
