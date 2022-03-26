@@ -2,7 +2,9 @@
 
 ## Summary
 
-Short summary on functionality and used technologies.
+Visitor Counter provides some insight on Viva Connections Dashboard usage.
+
+![image](https://user-images.githubusercontent.com/11201670/160254317-560cc3c3-5a1d-4106-945c-8b89edc1327f.png)
 
 [picture of the solution in action, if possible]
 
