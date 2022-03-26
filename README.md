@@ -8,7 +8,7 @@ Visitor Counter Adaptive Card Extension provides some insight on Viva Connection
 
 ## Used SharePoint Framework Version
 
-![version](https://img.shields.io/badge/version-1.13-green.svg)
+![version](https://img.shields.io/badge/version-1.14-green.svg)
 
 ## Applies to
 
