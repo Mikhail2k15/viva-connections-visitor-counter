@@ -31,8 +31,8 @@ folder name | Author details (name, company, twitter alias with link)
 
 Version|Date|Comments
 -------|----|--------
-1.1|March 10, 2021|Update comment
-1.0|January 29, 2021|Initial release
+1.0.4|March 26, 2022|Fixes
+1.0|March 24, 2022|Initial release
 
 ## Disclaimer
 
@@ -46,7 +46,9 @@ Version|Date|Comments
 - Ensure that you are at the solution folder
 - in the command-line run:
   - **npm install**
-  - **gulp serve**
+  - **gulp serve --nobrowser**
+  - **gulp bundle --ship**
+  - **gulp package-solution --ship**
 
 > Include any additional steps as needed.
 
