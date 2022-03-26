@@ -5,6 +5,7 @@ import { IVisitorCounterAdaptiveCardExtensionProps, IVisitorCounterAdaptiveCardE
 export interface IQuickViewData {
   subTitle: string;
   title: string;
+  monthly: string;
   msteams: string;
   spo: string;
   desktop: string;
@@ -19,13 +20,15 @@ export class QuickView extends BaseAdaptiveCardView<
 > {
   public get data(): IQuickViewData {
     const monthly: number = this.state.monthly;
-    const msteams: number = +this.state.desktop + +this.state.mobile + +this.state.web;
-    const spo: number = monthly - msteams;
+    const msteams: number = +this.state.desktop + +this.state.mobile + +this.state.web;    
+    const spo: number = this.state.spo;
+    const msteamsPercent = (msteams /(+msteams + +spo)) * 100;
     return {
       subTitle: strings.SubTitle,
       title: strings.Title,
-      msteams: msteams.toString(),
-      spo: spo.toString(),
+      monthly: monthly.toString(),
+      msteams: `${msteamsPercent.toFixed(0)} % (${msteams})`,
+      spo: `${(100 - msteamsPercent).toFixed(0)} % (${spo})`,
       desktop: this.state.desktop.toString(),
       mobile: this.state.mobile.toString(),
       web: this.state.web.toString() 

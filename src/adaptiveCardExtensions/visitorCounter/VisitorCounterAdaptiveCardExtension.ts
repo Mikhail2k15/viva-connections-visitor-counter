@@ -25,6 +25,7 @@ export interface IVisitorCounterAdaptiveCardExtensionState {
   desktop: number;
   mobile: number;
   web: number;
+  spo: number;
   showAnalytics: boolean;
 
 }
@@ -53,6 +54,7 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
         desktop: 0,
         mobile: 0,
         web: 0,
+        spo: 0,
         showAnalytics: false
        };
 
@@ -131,9 +133,10 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
     const monthlyCount: any[] = await VivaConnectionsInsights.getMonthlySessions(appInsightsSvc);
     const resultMobile: any[] = await VivaConnectionsInsights.getMobileSessions(appInsightsSvc, TimeSpan['30 days']);
     const resultDesktop: any[] = await VivaConnectionsInsights.getDesktopSessions(appInsightsSvc, TimeSpan['30 days']);
-    const resultWeb: any[] = await VivaConnectionsInsights.getWebSessions(appInsightsSvc, TimeSpan['30 days']);   
+    const resultWeb: any[] = await VivaConnectionsInsights.getWebSessions(appInsightsSvc, TimeSpan['30 days']);
+    const resultSPO: any[] = await VivaConnectionsInsights.getSharePointSessions(appInsightsSvc, TimeSpan['30 days']);  
 
-    Promise.all([resultToday, monthlyCount, resultDesktop, resultMobile, resultWeb]).then(()=>{
+    Promise.all([resultToday, monthlyCount, resultDesktop, resultMobile, resultWeb, resultSPO]).then(()=>{
       Logger.log({
         message: "All counts",
         data: { thisState: this.state },
@@ -147,6 +150,7 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
           desktop: resultDesktop?.length == 1 ? resultDesktop[0] : 0,
           mobile: resultMobile?.length == 1 ? resultMobile[0] : 0,
           web: resultWeb?.length == 1 ? resultWeb[0] : 0,
+          spo: resultSPO?.length == 1 ? resultSPO[0] : 0,
           showAnalytics: true
         });
         console.log(this.state);  

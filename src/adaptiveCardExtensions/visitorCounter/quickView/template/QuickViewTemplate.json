@@ -5,97 +5,46 @@
   "body": [
     {
       "type": "TextBlock",
-      "text": "Analytics for the last 30 days",
       "wrap": true,
-      "weight": "Bolder",
-      "size": "large",
-      "spacing": "small"
+      "text": "Viva Connections Dashboard usage insights for the last 30 days"
     },
     {
       "type": "TextBlock",
-      "weight": "Bolder",
       "text": "Microsoft Teams vs SharePoint Portal"
     },
     {
-      "type": "ColumnSet",
-      "columns": [
+      "type": "FactSet",
+      "facts": [
         {
-          "type": "Column",
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": "Microsoft Teams: ${msteams}",
-              "wrap": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "ColumnSet",
-      "columns": [
+          "title": "Teams",
+          "value": "${msteams}"
+        },
         {
-          "type": "Column",
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": "SharePoint: ${spo}",
-              "wrap": true
-            }
-          ]
-        }
+          "title": "SharePoint",
+          "value": "${spo}"
+        }        
       ]
     },
     {
       "type": "TextBlock",
-      "weight": "Bolder",
       "text": "Microsoft Teams Details"
-    },
+    },    
     {
-      "type": "ColumnSet",
-      "columns": [
+      "type": "FactSet",
+      "facts": [
         {
-          "type": "Column",
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": "Microsoft Teams Desktop: ${desktop}",
-              "wrap": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "ColumnSet",
-      "columns": [
+          "title": "Desktop",
+          "value": "${desktop}"
+        },
         {
-          "type": "Column",
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": "Microsoft Teams Mobile: ${mobile}",
-              "wrap": true
-            }
-          ]
+          "title": "Mobile",
+          "value": "${mobile}"
+        },
+        {
+          "title": "Web",
+          "value": "${web}"
         }
       ]
     }
-    ,
-    {
-      "type": "ColumnSet",
-      "columns": [
-        {
-          "type": "Column",
-          "items": [
-            {
-              "type": "TextBlock",
-              "text": "Microsoft Teams Web: ${web}",
-              "wrap": true
-            }
-          ]
-        }
-      ]
-    }    
   ]
 }

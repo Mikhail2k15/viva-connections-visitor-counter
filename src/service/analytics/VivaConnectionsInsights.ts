@@ -24,7 +24,12 @@ export default class VivaConnectionsInsights {
     }
 
     public static async getWebSessions(service: AppInsightsAnalyticsService, timeSpan: TimeSpan) {
-        const queryWeb: string = "customEvents | extend web = tostring(customDimensions['ancestorOrigins']) | where name == 'WebView' and web contains 'teams.microsoft.com' | summarize dcount(session_Id)";   
+        const queryWeb: string = "customEvents | extend web = tostring(customDimensions['ancestorOrigins']) | where name == 'WebView' and web contains_cs 'teams.microsoft.com' | summarize dcount(session_Id)";   
+        return await service.getQueryResultAsync(queryWeb, timeSpan);
+    }
+
+    public static async getSharePointSessions(service: AppInsightsAnalyticsService, timeSpan: TimeSpan) {
+        const queryWeb: string = "customEvents | extend web = tostring(customDimensions['ancestorOrigins']) | where name == 'WebView' and web !contains_cs 'teams.microsoft.com' | summarize dcount(session_Id)";   
         return await service.getQueryResultAsync(queryWeb, timeSpan);
     }
 
