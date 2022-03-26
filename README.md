@@ -4,9 +4,7 @@
 
 Visitor Counter provides some insight on Viva Connections Dashboard usage.
 
-![image](https://user-images.githubusercontent.com/11201670/160254317-560cc3c3-5a1d-4106-945c-8b89edc1327f.png)
-
-[picture of the solution in action, if possible]
+![image](https://user-images.githubusercontent.com/11201670/160254434-ffdbed0c-47a9-4259-b867-e56fe7801e5e.png)
 
 ## Used SharePoint Framework Version
 
