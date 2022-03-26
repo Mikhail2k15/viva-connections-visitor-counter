@@ -1,8 +1,8 @@
-# visitor-counter
+# Visitor Counter
 
 ## Summary
 
-Visitor Counter provides some insight on Viva Connections Dashboard usage.
+Visitor Counter Adaptive Card Extension provides some insight on Viva Connections Dashboard usage.
 
 ![image](https://user-images.githubusercontent.com/11201670/160254434-ffdbed0c-47a9-4259-b867-e56fe7801e5e.png)
 
