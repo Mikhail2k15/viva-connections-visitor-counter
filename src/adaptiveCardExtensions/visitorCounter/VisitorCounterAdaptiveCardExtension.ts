@@ -1,10 +1,10 @@
 import { IPropertyPaneConfiguration } from '@microsoft/sp-property-pane';
 import { BaseAdaptiveCardExtension } from '@microsoft/sp-adaptive-card-extension-base';
 import { QuickView } from './quickView/QuickView';
+import { ImageCardView } from './cardView/ImageCardView';
 import { VisitorCounterPropertyPane } from './VisitorCounterPropertyPane';
 import { Logger, LogLevel } from '@pnp/logging';
-import { AppInsightsTelemetryTracker } from '../../AppInsightsTelemetryTracker';
-import { ImageCardView } from './cardView/ImageCardView';
+import { AppInsightsTelemetryTracker } from '../../service/analytics/AppInsightsTelemetryTracker';
 import { TimeSpan } from '../../service/analytics/TimeSpan';
 import AppInsightsAnalyticsService from '../../service/analytics/AppInsightsAnalyticsService';
 import VivaConnectionsInsights from '../../service/analytics/VivaConnectionsInsights';

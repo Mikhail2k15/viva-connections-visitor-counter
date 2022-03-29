@@ -4,7 +4,19 @@ import { TimeSpan } from "./TimeSpan";
 
 
 export default class AppInsightsAnalyticsService {
-    private appInsightsEndpoint: string = 'https://api.applicationinsights.io/v1/apps';     
+    private appInsightsEndpoint: string = 'https://api.applicationinsights.io/v1/apps';
+    private httpClient: HttpClient;
+    private httpClientOptions: IHttpClientOptions;
+    private requestHeaders: Headers = new Headers(); 
+    
+    constructor(httpClient: HttpClient, appId: string, appKey: string){
+        this.httpClient = httpClient;
+        this.appInsightsEndpoint += `/${appId}`;
+        
+        this.requestHeaders.append('Content-type', 'application/json; charset=utf-8');
+        this.requestHeaders.append('x-api-key', appKey);
+        this.httpClientOptions = { headers: this.requestHeaders };
+    }
     
     private executeQuery = async (queryUrl: string): Promise<any> => {
         let response: HttpClientResponse = await this.httpClient.get(queryUrl, HttpClient.configurations.v1, this.httpClientOptions);
@@ -38,21 +50,4 @@ export default class AppInsightsAnalyticsService {
             return result;
         });        
     }
-
-    constructor(httpClient: HttpClient, appId: string, appKey: string){
-        this.httpClient = httpClient;
-        this.appInsightsEndpoint += `/${appId}`;
-        
-        this.requestHeaders.append('Content-type', 'application/json; charset=utf-8');
-        this.requestHeaders.append('x-api-key', appKey);
-        this.httpClientOptions = { headers: this.requestHeaders };
-
-        Logger.writeJSON({ 
-            appInsightsEndpoint: this.appInsightsEndpoint, 
-            appKey: appKey }, LogLevel.Info);
-    }
-    
-    private httpClient: HttpClient;
-    private httpClientOptions: IHttpClientOptions;
-    private requestHeaders: Headers = new Headers();
 }
