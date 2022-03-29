@@ -19,7 +19,7 @@ Visitor Counter Adaptive Card Extension provides some insight on Viva Connection
 
 ## Prerequisites
 
-> Any special pre-requisites?
+> Application Insights
 
 ## Solution
 
