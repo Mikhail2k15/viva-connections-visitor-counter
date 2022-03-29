@@ -1,4 +1,4 @@
-# Visitor Counter
+# Visitor Counter for Viva Connections Dashboard
 
 ## Summary
 
