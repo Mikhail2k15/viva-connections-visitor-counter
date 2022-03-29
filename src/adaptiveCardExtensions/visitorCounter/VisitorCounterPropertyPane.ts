@@ -9,33 +9,33 @@ export class VisitorCounterPropertyPane {
           header: { description: strings.PropertyPaneDescription },
           groups: [
             {
-              groupName: 'General',
+              groupName: strings.GeneralFieldsGroupName,
               groupFields: [
                 PropertyPaneTextField('title', {
                   label: strings.TitleFieldLabel
                 }),
                 PropertyPaneTextField('primaryText', {
-                  label: 'Primary Text'
+                  label: strings.PrimaryTextFieldLabel
                 }),
                 PropertyPaneTextField('imageUrl', {
-                  label: 'Image Url'
+                  label: strings.CustomImageFieldLabel
                 }),
                 PropertyPaneTextField('analytics', {
-                  label: 'Analytics'
+                  label: strings.AnalystsFieldLabel
                 })                
               ]
             },
             {
-              groupName: 'Application Insights',
+              groupName: strings.AppInsightsFieldsGroupName,
               groupFields: [
                 PropertyPaneTextField('aiKey', {
-                  label: 'Instrumentation Key'
+                  label: strings.AppInsightsInstrumentationKeyFieldLabel
                 }),
                 PropertyPaneTextField('aiAppId', {
-                  label: 'Application ID'
+                  label: strings.AppInsightsApplicationIDFieldLabel
                 }),
                 PropertyPaneTextField('aiAppKey', {
-                  label: 'API key'
+                  label: strings.AppInsightsAPIKeyFieldLabel
                 })
               ]
             }
