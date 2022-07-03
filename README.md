@@ -44,13 +44,17 @@ Version|Date|Comments
 
 - Clone this repository
 - Ensure that you are at the solution folder
-- in the command-line run:
+- In the command-line run:
   - **npm install**
   - **gulp serve --nobrowser**
   - **gulp bundle --ship**
   - **gulp package-solution --ship**
 
-> Include any additional steps as needed.
+> Log in to the Azure Portal, 
+  - Create an Application Insights resource
+  - In the sidebar, navigate to Configure > API Access on the sidebar 
+  - Create API key with read telemertry permission
+  - Copy the Application ID and API Key
 
 ## Features
 
