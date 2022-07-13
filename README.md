@@ -4,7 +4,7 @@
 
 Visitor Counter for Viva Connections Dashboard is a simple widget (Adaptive Card Extension) which provides to you insights about how users interact with your intranet. For example, you can view the number of people who have visited your intranet portal via a brand-new Viva Connections App in Teams vs browser (old way). 
 
-![image](https://user-images.githubusercontent.com/11201670/160254434-ffdbed0c-47a9-4259-b867-e56fe7801e5e.png)
+![image](https://user-images.githubusercontent.com/11201670/178820760-b4d50cb8-9649-4fc7-9d2c-1b6ae1de44e2.png)
 
 ## Used SharePoint Framework Version
 
