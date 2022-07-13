@@ -2,7 +2,7 @@
 
 ## Summary
 
-Visitor Counter Adaptive Card Extension provides some insight on Viva Connections Dashboard usage.
+Visitor Counter for Viva Connections Dashboard is a simple widget (Adaptive Card Extension) which provides to you insights about how users interact with your intranet. For example, you can view the number of people who have visited your intranet portal via a brand-new Viva Connections App in Teams vs browser (old way). 
 
 ![image](https://user-images.githubusercontent.com/11201670/160254434-ffdbed0c-47a9-4259-b867-e56fe7801e5e.png)
 
@@ -53,7 +53,7 @@ Version|Date|Comments
 > Log in to the Azure Portal, 
   - Create an Application Insights resource
   - In the sidebar, navigate to Configure > API Access on the sidebar 
-  - Create API key with read telemertry permission
+  - Create API key with a read telemertry permission
   - Copy the Application ID and API Key
 
 ## Features
