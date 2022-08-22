@@ -10,12 +10,12 @@
   },
   "dependencies": {
     "@microsoft/applicationinsights-react-js": "^3.0.5",
-    "@microsoft/applicationinsights-web": "^2.5.8",
+    "@microsoft/applicationinsights-web": "^2.8.6",
     "@microsoft/sp-adaptive-card-extension-base": "1.15.2",
     "@microsoft/sp-core-library": "1.15.2",
     "@microsoft/sp-property-pane": "1.15.2",
-    "tslib": "2.3.1",
-    "@pnp/logging": "^3.0.3"
+    "@pnp/logging": "^3.0.3",
+    "tslib": "2.3.1"
   },
   "devDependencies": {
     "@microsoft/eslint-config-spfx": "1.15.2",
