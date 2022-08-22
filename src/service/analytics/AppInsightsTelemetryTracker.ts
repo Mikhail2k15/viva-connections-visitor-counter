@@ -71,7 +71,7 @@ export class AppInsightsTelemetryTracker implements ILogListener {
             }
         }
         return msg.join(' | ');
-    };
+    }
 
     private static initializeAI(instrumentationKey?: string): ApplicationInsights {
         console.log("begin _initializeAI");
@@ -92,7 +92,7 @@ export class AppInsightsTelemetryTracker implements ILogListener {
         });
 
         appInsights.loadAppInsights();
-        appInsights.context.application.ver = '1.0.3';
+        appInsights.context.application.ver = '1.1.1';
         console.log("end _initializeAI");
         return appInsights;
     }
