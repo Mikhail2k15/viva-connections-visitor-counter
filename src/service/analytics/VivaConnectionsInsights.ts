@@ -10,7 +10,7 @@ export default class VivaConnectionsInsights {
 
     public static async getMonthlySessions(service: AppInsightsAnalyticsService) {
         const uniqueSessions: string = "customEvents | summarize dcount(session_Id)";        
-        return await service.getQueryResultAsync(uniqueSessions, TimeSpan['30 day']);
+        return await service.getQueryResultAsync(uniqueSessions, TimeSpan['30 days']);
     }
 
     public static async getMobileSessions(service: AppInsightsAnalyticsService, timeSpan: TimeSpan) {

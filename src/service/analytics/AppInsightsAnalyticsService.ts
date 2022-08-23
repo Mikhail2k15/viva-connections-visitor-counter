@@ -19,16 +19,16 @@ export default class AppInsightsAnalyticsService {
     }
     
     private executeQuery = async (queryUrl: string): Promise<any> => {
-        let response: HttpClientResponse = await this.httpClient.get(queryUrl, HttpClient.configurations.v1, this.httpClientOptions);
+        const response: HttpClientResponse = await this.httpClient.get(queryUrl, HttpClient.configurations.v1, this.httpClientOptions);
         return await response.json();
     }
 
     public getQueryResultAsync = async (query: string, timespan?: TimeSpan): Promise<any[]>=>{
         Logger.log({ message: timespan, level: LogLevel.Verbose});
-        let queryUrl: string = timespan ? `timespan=${timespan}&query=${encodeURIComponent(query)}` : `query=${encodeURIComponent(query)}`;
-        let url: string = this.appInsightsEndpoint + `/query?${queryUrl}`; 
+        const queryUrl: string = timespan ? `timespan=${timespan}&query=${encodeURIComponent(query)}` : `query=${encodeURIComponent(query)}`;
+        const url: string = this.appInsightsEndpoint + `/query?${queryUrl}`; 
 
-        let resp: any = await this.executeQuery(url);
+        const resp: any = await this.executeQuery(url);
         let result: any[] = [];
         if (resp.tables.length > 0){
             result = resp.tables[0].rows;
@@ -39,8 +39,8 @@ export default class AppInsightsAnalyticsService {
 
     public getQueryResult = (query: string, timespan?: TimeSpan) =>{
         Logger.log({ message: timespan, level: LogLevel.Verbose});
-        let queryUrl: string = timespan ? `timespan=${timespan}&query=${encodeURIComponent(query)}` : `query=${encodeURIComponent(query)}`;
-        let url: string = this.appInsightsEndpoint + `/query?${queryUrl}`; 
+        const queryUrl: string = timespan ? `timespan=${timespan}&query=${encodeURIComponent(query)}` : `query=${encodeURIComponent(query)}`;
+        const url: string = this.appInsightsEndpoint + `/query?${queryUrl}`; 
 
         this.executeQuery(url).then(resp => {
             let result: any[] = [];

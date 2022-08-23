@@ -39,7 +39,7 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
 > {
   private _deferredPropertyPane: VisitorCounterPropertyPane | undefined;
 
-  public onInit(): Promise<void> {
+  public async onInit(): Promise<void> {
     try {
       Logger.activeLogLevel = LogLevel.Verbose;
       Logger.log({
@@ -64,22 +64,24 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
           data: { aiKey: this.properties.aiKey },
           level: LogLevel.Verbose
         });
-        let ai = new AppInsightsTelemetryTracker(this.properties.aiKey);         
+        const ai = new AppInsightsTelemetryTracker(this.properties.aiKey);         
         ai.trackEvent(this.context.deviceContext); 
         try{
           Logger.subscribe(ai);   
         }
-        catch {} 
+        catch {
+          console.log("can't initialize logger");
+        } 
       }
 
       // This matters only for several people, get them from properties (upn separted by columns)
       if (this.properties.analytics && this.properties.analytics.length > 0){
         const people = this.properties.analytics;
-        let result = people.indexOf(this.context.pageContext.user.email);      
+        const result = people.indexOf(this.context.pageContext.user.email);      
         if (result >= 0){
           if (this.properties.aiAppId && this.properties.aiAppKey){
             const appInsightsSvc = new AppInsightsAnalyticsService(this.context.httpClient, this.properties.aiAppId, this.properties.aiAppKey);
-            this.getInsights(appInsightsSvc);
+            await this.getInsights(appInsightsSvc);
           }
         }
       }
@@ -119,7 +121,7 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
       message: "Begin getPropertyPaneConfiguration",
       level: LogLevel.Verbose
     });
-    return this._deferredPropertyPane!.getPropertyPaneConfiguration();
+    return this._deferredPropertyPane?.getPropertyPaneConfiguration();
   }
 
   protected renderCard(): string | undefined {
@@ -127,7 +129,7 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
     return IMAGE_CARD_VIEW_REGISTRY_ID;
   }
 
-  private getInsights = async (appInsightsSvc: AppInsightsAnalyticsService) => {
+  private getInsights = async (appInsightsSvc: AppInsightsAnalyticsService): Promise<void> => {
     const resultToday: any[] = await VivaConnectionsInsights.getTodaySessions(appInsightsSvc);
     
     const monthlyCount: any[] = await VivaConnectionsInsights.getMonthlySessions(appInsightsSvc);
@@ -145,12 +147,12 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
       
       this.setState(
         {
-          today: resultToday?.length == 1 ? resultToday[0] : 0,
-          monthly: monthlyCount?.length == 1 ? monthlyCount[0] : 0,
-          desktop: resultDesktop?.length == 1 ? resultDesktop[0] : 0,
-          mobile: resultMobile?.length == 1 ? resultMobile[0] : 0,
-          web: resultWeb?.length == 1 ? resultWeb[0] : 0,
-          spo: resultSPO?.length == 1 ? resultSPO[0] : 0,
+          today: resultToday?.length === 1 ? resultToday[0] : 0,
+          monthly: monthlyCount?.length === 1 ? monthlyCount[0] : 0,
+          desktop: resultDesktop?.length === 1 ? resultDesktop[0] : 0,
+          mobile: resultMobile?.length === 1 ? resultMobile[0] : 0,
+          web: resultWeb?.length === 1 ? resultWeb[0] : 0,
+          spo: resultSPO?.length === 1 ? resultSPO[0] : 0,
           showAnalytics: true
         });
         console.log(this.state);  
