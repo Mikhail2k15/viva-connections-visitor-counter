@@ -1,4 +1,4 @@
-import { IPropertyPaneConfiguration, PropertyPaneTextField } from '@microsoft/sp-property-pane';
+import { IPropertyPaneConfiguration, PropertyPaneTextField, PropertyPaneToggle } from '@microsoft/sp-property-pane';
 import * as strings from 'VisitorCounterAdaptiveCardExtensionStrings';
 
 export class VisitorCounterPropertyPane {
@@ -22,7 +22,10 @@ export class VisitorCounterPropertyPane {
                 }),
                 PropertyPaneTextField('analytics', {
                   label: strings.AnalystsFieldLabel
-                })                
+                }),
+                PropertyPaneToggle('trackPII', {
+                  label: strings.TrackPIIFieldLabel
+                }),                
               ]
             },
             {

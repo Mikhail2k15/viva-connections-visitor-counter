@@ -5,6 +5,7 @@ declare interface IVisitorCounterAdaptiveCardExtensionStrings {
   PrimaryTextFieldLabel: string;
   CustomImageFieldLabel: string;
   AnalystsFieldLabel: string;
+  TrackPIIFieldLabel: string;
   Title: string;
   SubTitle: string;
   PrimaryText: string;

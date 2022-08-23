@@ -92,7 +92,7 @@ export class AppInsightsTelemetryTracker implements ILogListener {
         });
 
         appInsights.loadAppInsights();
-        appInsights.context.application.ver = '1.1.1';
+        appInsights.context.application.ver = '2.0.0';
         console.log("end _initializeAI");
         return appInsights;
     }

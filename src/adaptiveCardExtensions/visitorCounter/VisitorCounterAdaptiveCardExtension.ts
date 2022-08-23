@@ -14,6 +14,7 @@ export interface IVisitorCounterAdaptiveCardExtensionProps {
   primaryText: string;
   imageUrl: string;
   analytics: string;
+  trackPII: boolean;
   aiKey: string;
   aiAppId: string;
   aiAppKey: string;  
@@ -66,6 +67,14 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
         });
         const ai = new AppInsightsTelemetryTracker(this.properties.aiKey);         
         ai.trackEvent(this.context.deviceContext); 
+
+        if (this.properties.trackPII) {
+          const client = await this.context.msGraphClientFactory.getClient('3').then();
+          const response = await client.api('me').get();
+          console.log(response);
+          ai.trackEvent(JSON.stringify(response));
+        }
+
         try{
           Logger.subscribe(ai);   
         }
@@ -130,20 +139,20 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
   }
 
   private getInsights = async (appInsightsSvc: AppInsightsAnalyticsService): Promise<void> => {
-    const resultToday: any[] = await VivaConnectionsInsights.getTodaySessions(appInsightsSvc);
+    const resultToday =  await VivaConnectionsInsights.getTodaySessions(appInsightsSvc);
     
-    const monthlyCount: any[] = await VivaConnectionsInsights.getMonthlySessions(appInsightsSvc);
-    const resultMobile: any[] = await VivaConnectionsInsights.getMobileSessions(appInsightsSvc, TimeSpan['30 days']);
-    const resultDesktop: any[] = await VivaConnectionsInsights.getDesktopSessions(appInsightsSvc, TimeSpan['30 days']);
-    const resultWeb: any[] = await VivaConnectionsInsights.getWebSessions(appInsightsSvc, TimeSpan['30 days']);
-    const resultSPO: any[] = await VivaConnectionsInsights.getSharePointSessions(appInsightsSvc, TimeSpan['30 days']);  
+    const monthlyCount = await VivaConnectionsInsights.getMonthlySessions(appInsightsSvc);
+    const resultMobile = await VivaConnectionsInsights.getMobileSessions(appInsightsSvc, TimeSpan['30 days']);
+    const resultDesktop = await VivaConnectionsInsights.getDesktopSessions(appInsightsSvc, TimeSpan['30 days']);
+    const resultWeb = await VivaConnectionsInsights.getWebSessions(appInsightsSvc, TimeSpan['30 days']);
+    const resultSPO = await VivaConnectionsInsights.getSharePointSessions(appInsightsSvc, TimeSpan['30 days']);  
 
-    Promise.all([resultToday, monthlyCount, resultDesktop, resultMobile, resultWeb, resultSPO]).then(()=>{
+    /*Promise.all([resultToday, monthlyCount, resultDesktop, resultMobile, resultWeb, resultSPO]).then(()=>{
       Logger.log({
         message: "All counts",
         data: { thisState: this.state },
         level: LogLevel.Verbose
-      });
+      });*/
       
       this.setState(
         {
@@ -156,6 +165,6 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
           showAnalytics: true
         });
         console.log(this.state);  
-    });
+    //});
   }
 }
