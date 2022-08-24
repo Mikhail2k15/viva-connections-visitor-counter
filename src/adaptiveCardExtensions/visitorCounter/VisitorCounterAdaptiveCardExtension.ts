@@ -140,7 +140,6 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
 
   private getInsights = async (appInsightsSvc: AppInsightsAnalyticsService): Promise<void> => {
     const resultToday =  await VivaConnectionsInsights.getTodaySessions(appInsightsSvc);
-    
     const monthlyCount = await VivaConnectionsInsights.getMonthlySessions(appInsightsSvc);
     const resultMobile = await VivaConnectionsInsights.getMobileSessions(appInsightsSvc, TimeSpan['30 days']);
     const resultDesktop = await VivaConnectionsInsights.getDesktopSessions(appInsightsSvc, TimeSpan['30 days']);
@@ -156,15 +155,13 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
       
       this.setState(
         {
-          today: resultToday?.length === 1 ? resultToday[0] : 0,
-          monthly: monthlyCount?.length === 1 ? monthlyCount[0] : 0,
-          desktop: resultDesktop?.length === 1 ? resultDesktop[0] : 0,
-          mobile: resultMobile?.length === 1 ? resultMobile[0] : 0,
-          web: resultWeb?.length === 1 ? resultWeb[0] : 0,
-          spo: resultSPO?.length === 1 ? resultSPO[0] : 0,
+          today: resultToday,
+          monthly: monthlyCount,
+          desktop: resultDesktop,
+          mobile: resultMobile,
+          web: resultWeb,
+          spo: resultSPO,
           showAnalytics: true
         });
-        console.log(this.state);  
-    //});
   }
 }

@@ -20,7 +20,6 @@ export class AppInsightsTelemetryTracker implements ILogListener {
     };
 
     constructor(instrumentationKey: string) {
-        console.log('AppInsightsLogListener ctor');
         if (!AppInsightsTelemetryTracker.appInsightsInstance)
         AppInsightsTelemetryTracker.appInsightsInstance = AppInsightsTelemetryTracker.initializeAI(instrumentationKey);
     }
@@ -52,11 +51,9 @@ export class AppInsightsTelemetryTracker implements ILogListener {
     }
 
     public trackEvent(name: string): void {
-        console.log('begin trackEvent for even name ', name);
         if (AppInsightsTelemetryTracker.appInsightsInstance)
             AppInsightsTelemetryTracker.appInsightsInstance.trackEvent(
                 { name: name}, AppInsightsTelemetryTracker.BaseProperties.CustomProps);
-        console.log('end trackEvent');
     }
 
     private logMessageFormat(entry: ILogEntry): string {
@@ -74,7 +71,6 @@ export class AppInsightsTelemetryTracker implements ILogListener {
     }
 
     private static initializeAI(instrumentationKey?: string): ApplicationInsights {
-        console.log("begin _initializeAI");
         const browserHistory = createBrowserHistory({ basename: '' });
         AppInsightsTelemetryTracker.reactPluginInstance = new ReactPlugin();
         const appInsights = new ApplicationInsights({
@@ -93,7 +89,6 @@ export class AppInsightsTelemetryTracker implements ILogListener {
 
         appInsights.loadAppInsights();
         appInsights.context.application.ver = '2.0.0';
-        console.log("end _initializeAI");
         return appInsights;
     }
 }

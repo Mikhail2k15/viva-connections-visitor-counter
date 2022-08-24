@@ -1,6 +1,7 @@
 {
   "name": "visitor-counter",
   "version": "2.0.0",
+  "author": "Michael Bondarevsky <bondarevsky@gmail.com>",
   "private": true,
   "main": "lib/index.js",
   "scripts": {
