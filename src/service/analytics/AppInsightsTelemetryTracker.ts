@@ -8,6 +8,9 @@ import { ApplicationInsights, SeverityLevel } from '@microsoft/applicationinsigh
 import { ReactPlugin } from '@microsoft/applicationinsights-react-js';
 import { createBrowserHistory } from "history";
 
+const APP_NAME = 'VISITOR_COUNTER_ACE';
+const APP_VERSION = '2.0.0';
+
 export class AppInsightsTelemetryTracker implements ILogListener {
     private static appInsightsInstance: ApplicationInsights;
     private static reactPluginInstance: ReactPlugin;
@@ -15,7 +18,7 @@ export class AppInsightsTelemetryTracker implements ILogListener {
     private static BaseProperties = {
         CustomProps: {
             ancestorOrigins: (window && window.location && window.location.ancestorOrigins) ? window.location.ancestorOrigins : "UNKNOWN", 
-            App_Name: 'VISITOR_COUNTER_ACE', 
+            App_Name: APP_NAME, 
         }
     };
 
@@ -50,10 +53,11 @@ export class AppInsightsTelemetryTracker implements ILogListener {
             }
     }
 
-    public trackEvent(name: string): void {
-        if (AppInsightsTelemetryTracker.appInsightsInstance)
-            AppInsightsTelemetryTracker.appInsightsInstance.trackEvent(
-                { name: name}, AppInsightsTelemetryTracker.BaseProperties.CustomProps);
+    public trackEvent(name: string, json?: string): void {
+        if (AppInsightsTelemetryTracker.appInsightsInstance) {
+            const obj = json ? {...AppInsightsTelemetryTracker.BaseProperties.CustomProps, ...JSON.parse(json)} : AppInsightsTelemetryTracker.BaseProperties.CustomProps;
+            AppInsightsTelemetryTracker.appInsightsInstance.trackEvent({ name: name}, obj);
+        }
     }
 
     private logMessageFormat(entry: ILogEntry): string {
@@ -88,7 +92,7 @@ export class AppInsightsTelemetryTracker implements ILogListener {
         });
 
         appInsights.loadAppInsights();
-        appInsights.context.application.ver = '2.0.0';
+        appInsights.context.application.ver = APP_VERSION;
         return appInsights;
     }
 }

@@ -72,7 +72,7 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
           const client = await this.context.msGraphClientFactory.getClient('3').then();
           const response = await client.api('me').get();
           console.log(response);
-          ai.trackEvent(JSON.stringify(response));
+          ai.trackEvent(this.context.deviceContext, JSON.stringify(response));
         }
 
         try{
@@ -144,24 +144,17 @@ export default class VisitorCounterAdaptiveCardExtension extends BaseAdaptiveCar
     const resultMobile = await VivaConnectionsInsights.getMobileSessions(appInsightsSvc, TimeSpan['30 days']);
     const resultDesktop = await VivaConnectionsInsights.getDesktopSessions(appInsightsSvc, TimeSpan['30 days']);
     const resultWeb = await VivaConnectionsInsights.getWebSessions(appInsightsSvc, TimeSpan['30 days']);
-    const resultSPO = await VivaConnectionsInsights.getSharePointSessions(appInsightsSvc, TimeSpan['30 days']);  
-
-    /*Promise.all([resultToday, monthlyCount, resultDesktop, resultMobile, resultWeb, resultSPO]).then(()=>{
-      Logger.log({
-        message: "All counts",
-        data: { thisState: this.state },
-        level: LogLevel.Verbose
-      });*/
+    const resultSPO = await VivaConnectionsInsights.getSharePointSessions(appInsightsSvc, TimeSpan['30 days']); 
       
-      this.setState(
-        {
-          today: resultToday,
-          monthly: monthlyCount,
-          desktop: resultDesktop,
-          mobile: resultMobile,
-          web: resultWeb,
-          spo: resultSPO,
-          showAnalytics: true
-        });
+    this.setState(
+      {
+        today: resultToday,
+        monthly: monthlyCount,
+        desktop: resultDesktop,
+        mobile: resultMobile,
+        web: resultWeb,
+        spo: resultSPO,
+        showAnalytics: true
+      });
   }
 }
